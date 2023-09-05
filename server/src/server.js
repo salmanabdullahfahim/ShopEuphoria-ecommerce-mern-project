@@ -30,6 +30,17 @@ app.get("/api/user", isLoggedIn, (req, res) => {
   });
 });
 
+//client error handling
+app.use((req, res, next) => {
+  res.status(404).json({ message: "route not found" });
+  next();
+});
+// server error handling
+app.use((err, req, res, next) => {
+  console.log(err.status);
+  res.status(500).json({ message: err.message });
+});
+
 app.listen(5001, () => {
   console.log(`server is running on port 5001`);
 });
