@@ -14,13 +14,14 @@ const limiter = rateLimit({
 });
 
 //middleware
+app.use(limiter);
 app.use(xssClean());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //api
-app.get("/test", limiter, (req, res) => {
+app.get("/test", (req, res) => {
   res.status(200).send({
     message: "api is working properly",
   });
