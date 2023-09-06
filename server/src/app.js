@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
 const { rateLimit } = require("express-rate-limit");
+const userRouter = require("./routers/userRouter");
 
 const app = express();
 
@@ -20,15 +21,13 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//user api
+app.use("/api/user", userRouter);
+
 //api
 app.get("/test", (req, res) => {
   res.status(200).send({
     message: "api is working properly",
-  });
-});
-app.get("/api/user", (req, res) => {
-  res.status(200).send({
-    message: "User is returned successfully",
   });
 });
 
