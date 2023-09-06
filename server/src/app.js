@@ -3,8 +3,15 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const xssClean = require("xss-clean");
+const { rateLimit } = require("express-rate-limit");
 
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minutes
+  max: 5,
+  message: "Too many request with this ip. try again later",
+});
 
 //middleware
 app.use(xssClean());
@@ -13,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //api
-app.get("/test", (req, res) => {
+app.get("/test", limiter, (req, res) => {
   res.status(200).send({
     message: "api is working properly",
   });
