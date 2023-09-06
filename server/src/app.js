@@ -2,9 +2,12 @@ const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
+const xssClean = require("xss-clean");
+
 const app = express();
 
 //middleware
+app.use(xssClean());
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
