@@ -28,6 +28,11 @@ app.get("/user", isLoggedIn, (req, res) => {
   });
 });
 
+//client error handler
+app.use((req, res, next) => {
+  res.status(404).json({ message: "route not found" });
+});
+
 app.listen(3001, () => {
   console.log("listening on 3001");
 });
