@@ -1,9 +1,17 @@
 const express = require("express");
 const morgan = require("morgan");
 const createError = require("http-errors");
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 
+const rateLimiter = rateLimit({
+  windowMS: 1 * 60 * 1000,
+  limit: 5,
+  message: "Too many requests from this ip. Please try again later",
+});
+
+app.use(rateLimiter);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
