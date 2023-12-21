@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const createError = require("http-errors");
 
 const app = express();
 
@@ -21,14 +22,14 @@ app.get("/user", (req, res) => {
 
 //client error handler
 app.use((req, res, next) => {
-  res.status(404).json({ message: "route not found" });
-  next();
+  next(createError(404, "route not found"));
 });
 
 //server error handler
 app.use((err, req, res, next) => {
-  console.log(err.stack);
-  res.status(500).json({ message: "something broke" });
+  return res
+    .status(err.status || 500)
+    .json({ success: false, message: err.message });
 });
 
 module.exports = app;
