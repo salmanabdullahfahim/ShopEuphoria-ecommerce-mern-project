@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const createError = require("http-errors");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
+const seedRouter = require("./routers/seedRouter");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/users", userRouter);
+app.use("/api/seed", seedRouter);
 
 //client error handler
 app.use((req, res, next) => {
