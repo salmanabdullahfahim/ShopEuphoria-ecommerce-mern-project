@@ -4,7 +4,7 @@ const createError = require("http-errors");
 const rateLimit = require("express-rate-limit");
 const userRouter = require("./routers/userRouter");
 const seedRouter = require("./routers/seedRouter");
-const { errorResponse } = require("./controllers/errorController");
+const { errorResponse } = require("./controllers/responseController");
 
 const app = express();
 
