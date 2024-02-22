@@ -32,7 +32,7 @@ const getUsers = async (req, res, next) => {
 
     return successResponse(res, {
       statusCode: 200,
-      message: "User were return successfully",
+      message: "User were return successfully.",
       payload: {
         users,
         pagination: {
