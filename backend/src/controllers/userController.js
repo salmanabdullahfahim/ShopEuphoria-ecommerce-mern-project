@@ -7,7 +7,7 @@ const getUsers = async (req, res, next) => {
   try {
     const search = req.query.search || "";
     const page = Number(req.query.page) || 1;
-    const limit = Number(req.query.limit) || 2;
+    const limit = Number(req.query.limit) || 5;
 
     const searchRegex = new RegExp(".*" + search + ".*", "i");
 
